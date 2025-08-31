@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Daily Inspiration - Mount Zion Victory Church{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>Daily Biblical Inspiration</h1>
+            <p>Start your day with wisdom, hope, and encouragement from God's Word</p>
+        </div>
+    </div>
+</section>
+
+<section class="inspiration-content">
+    <div class="container">
+        <!-- Today's Featured Inspiration -->
+        <div class="featured-inspiration">
+            <div class="inspiration-hero">
+                <div class="inspiration-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="inspiration-content">
+                    <h2>Today's Inspiration</h2>
+                    <blockquote class="inspiration-quote">
+                        "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future."
+                    </blockquote>
+                    <p class="inspiration-reference">— Jeremiah 29:11</p>
+                    <p class="inspiration-message">
+                        God has a purpose and plan for your life. Even when things seem uncertain, 
+                        trust that He is working all things together for your good.
+                    </p>
+                    <div class="inspiration-actions">
+                        <button class="btn btn-primary" id="share-inspiration">
+                            <i class="fas fa-share"></i> Share This
+                        </button>
+                        <button class="btn btn-outline" id="save-inspiration">
+                            <i class="fas fa-bookmark"></i> Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inspiration Archive -->
+        <div class="inspiration-archive">
+            <div class="section-header">
+                <h2>Inspiration Archive</h2>
+            </div>
+            
+            <div class="inspirations-grid">
+                {% for inspiration in inspirations %}
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <div class="inspiration-date">
+                            <span class="date-day">{{ inspiration.date.split('-')[2] }}</span>
+                            <span class="date-month">{{ inspiration.date.split('-')[1] }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="inspiration-body">
+                        <blockquote class="quote">
+                            "{{ inspiration.scripture }}"
+                        </blockquote>
+                        <p class="author">— {{ inspiration.author }}</p>
+                        {% if inspiration.quote %}
+                        <p class="additional-quote">{{ inspiration.quote }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="inspiration-footer">
+                        <button class="btn btn-outline btn-sm">Read More</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Random Inspiration Generator -->
+        <section class="inspiration-generator">
+            <div class="container">
+                <div class="generator-content">
+                    <div class="generator-text">
+                        <h2>Need a Quick Dose of Inspiration?</h2>
+                        <p>Click the button below to get a random biblical quote to brighten your day.</p>
+                    </div>
+                    <div class="generator-action">
+                        <button class="btn btn-primary btn-large" id="generate-inspiration">
+                            <i class="fas fa-random"></i> Get Random Inspiration
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="generated-inspiration" id="generated-inspiration" style="display: none;">
+                    <div class="generated-content">
+                        <blockquote class="generated-quote">
+                            <!-- Generated quote will appear here -->
+                        </blockquote>
+                        <p class="generated-reference"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Random inspiration generator
+    const generateBtn = document.getElementById('generate-inspiration');
+    const generatedSection = document.getElementById('generated-inspiration');
+    const generatedQuote = document.querySelector('.generated-quote');
+    const generatedReference = document.querySelector('.generated-reference');
+    
+    const inspirations = [
+        {
+            quote: "I can do all things through Christ who strengthens me.",
+            reference: "Philippians 4:13"
+        },
+        {
+            quote: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+            reference: "Joshua 1:9"
+        },
+        {
+            quote: "Trust in the Lord with all your heart and lean not on your own understanding.",
+            reference: "Proverbs 3:5"
+        }
+    ];
+    
+    if (generateBtn) {
+        generateBtn.addEventListener('click', function() {
+            const randomInspiration = inspirations[Math.floor(Math.random() * inspirations.length)];
+            
+            generatedQuote.textContent = `"${randomInspiration.quote}"`;
+            generatedReference.textContent = `— ${randomInspiration.reference}`;
+            generatedSection.style.display = 'block';
+            
+            generatedSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+});
+</script>
+{% endblock %}

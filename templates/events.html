@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}Church Events - Mount Zion Victory Church{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>Church Events</h1>
+            <p>Join us for worship, fellowship, and community building activities</p>
+        </div>
+    </div>
+</section>
+
+<section class="events-content">
+    <div class="container">
+        <!-- Calendar View Toggle -->
+        <div class="view-toggle">
+            <button class="view-btn active" data-view="grid">
+                <i class="fas fa-th-large"></i> Grid View
+            </button>
+            <button class="view-btn" data-view="calendar">
+                <i class="fas fa-calendar-alt"></i> Calendar View
+            </button>
+        </div>
+
+        <!-- Grid View -->
+        <div class="events-view" id="grid-view">
+            <div class="events-grid">
+                {% for event in events %}
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="event-day">{{ event.date.split('-')[2] }}</span>
+                        <span class="event-month">{{ event.date.split('-')[1] }}</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">{{ event.title }}</h3>
+                        <p class="event-description">{{ event.description }}</p>
+                        <div class="event-details">
+                            <span class="event-time"><i class="fas fa-clock"></i> {{ event.time }}</span>
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i> {{ event.location }}</span>
+                        </div>
+                        {% if event.registration_required %}
+                        <div class="event-registration">
+                            <span class="registration-badge">Registration Required</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                        {% if event.registration_required %}
+                        <button class="btn btn-outline btn-sm">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                        {% endif %}
+                        <button class="btn btn-outline btn-sm">
+                            <i class="fas fa-calendar-plus"></i> Add to Calendar
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div class="events-view" id="calendar-view" style="display: none;">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav" id="prev-month">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="current-month">February 2024</h2>
+                    <button class="calendar-nav" id="next-month">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="calendar-days" id="calendar-days">
+                        <!-- Calendar days will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upcoming Events Highlight -->
+<section class="upcoming-events">
+    <div class="container">
+        <div class="section-header">
+            <h2>Upcoming Events</h2>
+            <a href="#" class="view-all">View All Events</a>
+        </div>
+        
+        <div class="upcoming-grid">
+            <div class="upcoming-card featured">
+                <div class="upcoming-date">
+                    <span class="upcoming-day">15</span>
+                    <span class="upcoming-month">Feb</span>
+                </div>
+                <div class="upcoming-content">
+                    <h3>Youth Ministry Conference</h3>
+                    <p>Join us for an inspiring day of worship, teaching, and fellowship for young people.</p>
+                    <div class="upcoming-details">
+                        <span><i class="fas fa-clock"></i> 9:00 AM - 5:00 PM</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Main Sanctuary</span>
+                        <span><i class="fas fa-users"></i> Ages 13-25</span>
+                    </div>
+                    <div class="upcoming-actions">
+                        <button class="btn btn-primary">Register Now</button>
+                        <button class="btn btn-outline">Learn More</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="upcoming-card">
+                <div class="upcoming-date">
+                    <span class="upcoming-day">22</span>
+                    <span class="upcoming-month">Feb</span>
+                </div>
+                <div class="upcoming-content">
+                    <h3>Community Outreach Day</h3>
+                    <p>Help us serve our local community through various outreach programs.</p>
+                    <div class="upcoming-details">
+                        <span><i class="fas fa-clock"></i> 10:00 AM - 3:00 PM</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Various Locations</span>
+                        <span><i class="fas fa-users"></i> All Ages Welcome</span>
+                    </div>
+                    <div class="upcoming-actions">
+                        <button class="btn btn-primary">Join Us</button>
+                        <button class="btn btn-outline">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Event Categories -->
+<section class="event-categories">
+    <div class="container">
+        <div class="section-header">
+            <h2>Event Categories</h2>
+        </div>
+        
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-pray"></i>
+                </div>
+                <h3>Worship Services</h3>
+                <p>Sunday services, prayer meetings, and special worship events</p>
+                <a href="#" class="category-link">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Bible Study</h3>
+                <p>Weekly Bible study groups and theological discussions</p>
+                <a href="#" class="category-link">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Fellowship</h3>
+                <p>Community gatherings, social events, and family activities</p>
+                <a href="#" class="category-link">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>Outreach</h3>
+                <p>Community service, missions, and charitable activities</p>
+                <a href="#" class="category-link">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>Special Events</h3>
+                <p>Holiday celebrations, concerts, and special occasions</p>
+                <a href="#" class="category-link">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h3>Children & Youth</h3>
+                <p>Programs and activities for children and young people</p>
+                <a href="#" class="category-link">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Event Registration -->
+<section class="event-registration-section">
+    <div class="container">
+        <div class="registration-content">
+            <div class="registration-text">
+                <h2>Can't Find What You're Looking For?</h2>
+                <p>If you have an event idea or would like to organize something special, we'd love to hear from you!</p>
+                <div class="registration-features">
+                    <span><i class="fas fa-lightbulb"></i> Share your ideas</span>
+                    <span><i class="fas fa-calendar-plus"></i> Propose new events</span>
+                    <span><i class="fas fa-handshake"></i> Partner with us</span>
+                </div>
+            </div>
+            <div class="registration-form">
+                <form class="event-proposal-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Event Name" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Event Description" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Proposal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Events page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // View toggle functionality
+    const viewButtons = document.querySelectorAll('.view-btn');
+    const eventsViews = document.querySelectorAll('.events-view');
+    
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const view = this.dataset.view;
+            
+            // Update active button
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show/hide views
+            eventsViews.forEach(viewElement => {
+                if (viewElement.id === `${view}-view`) {
+                    viewElement.style.display = 'block';
+                } else {
+                    viewElement.style.display = 'none';
+                }
+            });
+            
+            // Initialize calendar if switching to calendar view
+            if (view === 'calendar') {
+                initCalendar();
+            }
+        });
+    });
+    
+    // Initialize calendar
+    function initCalendar() {
+        const currentMonthElement = document.getElementById('current-month');
+        const calendarDaysElement = document.getElementById('calendar-days');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        
+        function updateCalendar() {
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
+            let calendarHTML = '';
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + i);
+                
+                const isCurrentMonth = date.getMonth() === currentMonth;
+                const isToday = date.toDateString() === new Date().toDateString();
+                
+                let dayClass = 'calendar-day';
+                if (!isCurrentMonth) dayClass += ' other-month';
+                if (isToday) dayClass += ' today';
+                
+                calendarHTML += `<div class="${dayClass}">${date.getDate()}</div>`;
+            }
+            
+            calendarDaysElement.innerHTML = calendarHTML;
+        }
+        
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateCalendar();
+        });
+        
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendar();
+        });
+        
+        updateCalendar();
+    }
+    
+    // Event registration functionality
+    const registerButtons = document.querySelectorAll('.btn-outline');
+    registerButtons.forEach(button => {
+        if (button.textContent.includes('Register')) {
+            button.addEventListener('click', function() {
+                alert('Registration form would open here');
+            });
+        }
+    });
+    
+    // Add to calendar functionality
+    const addToCalendarButtons = document.querySelectorAll('.btn-outline');
+    addToCalendarButtons.forEach(button => {
+        if (button.textContent.includes('Add to Calendar')) {
+            button.addEventListener('click', function() {
+                alert('Event would be added to your calendar');
+            });
+        }
+    });
+    
+    // Event proposal form
+    const proposalForm = document.querySelector('.event-proposal-form');
+    if (proposalForm) {
+        proposalForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your event proposal! We will review it and get back to you soon.');
+            this.reset();
+        });
+    }
+});
+</script>
+{% endblock %}

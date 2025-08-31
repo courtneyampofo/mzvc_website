@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Mount Zion Victory Church - Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Mount Zion Victory Church</h1>
+            <p class="hero-subtitle">Spreading love, hope, and faith in our community</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('events') }}" class="btn btn-primary">Join Our Events</a>
+                <a href="{{ url_for('sermons') }}" class="btn btn-outline">Listen to Sermons</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Daily Inspiration Section -->
+{% if today_inspiration %}
+<section class="inspiration-section">
+    <div class="container">
+        <div class="inspiration-card">
+            <div class="inspiration-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="inspiration-content">
+                <h2>Today's Inspiration</h2>
+                <blockquote class="inspiration-quote">
+                    "{{ today_inspiration.scripture }}"
+                </blockquote>
+                <p class="inspiration-author">— {{ today_inspiration.author }}</p>
+                <a href="{{ url_for('inspiration') }}" class="inspiration-link">View All Inspirations</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Upcoming Events Section -->
+<section class="events-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Upcoming Events</h2>
+            <a href="{{ url_for('events') }}" class="view-all">View All Events</a>
+        </div>
+        <div class="events-grid">
+            {% for event in upcoming_events %}
+            <div class="event-card">
+                <div class="event-date">
+                    <span class="event-day">{{ event.date.split('-')[2] }}</span>
+                    <span class="event-month">{{ event.date.split('-')[1] }}</span>
+                </div>
+                <div class="event-content">
+                    <h3 class="event-title">{{ event.title }}</h3>
+                    <p class="event-description">{{ event.description }}</p>
+                    <div class="event-details">
+                        <span class="event-time"><i class="fas fa-clock"></i> {{ event.time }}</span>
+                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> {{ event.location }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Recent Sermons Section -->
+<section class="sermons-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Recent Sermons</h2>
+            <a href="{{ url_for('sermons') }}" class="view-all">View All Sermons</a>
+        </div>
+        <div class="sermons-grid">
+            {% for sermon in recent_sermons %}
+            <div class="sermon-card">
+                <div class="sermon-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <div class="sermon-content">
+                    <h3 class="sermon-title">{{ sermon.title }}</h3>
+                    <p class="sermon-speaker">by {{ sermon.speaker }}</p>
+                    <p class="sermon-scripture">{{ sermon.scripture }}</p>
+                    <p class="sermon-description">{{ sermon.description }}</p>
+                    <div class="sermon-date">
+                        <i class="fas fa-calendar"></i> {{ sermon.date }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Welcome Message Section -->
+<section class="welcome-section">
+    <div class="container">
+        <div class="welcome-content">
+            <div class="welcome-text">
+                <h2>Welcome to Mount Zion Victory Church Family</h2>
+                <p>We are a community of believers dedicated to serving God and our neighbors. Whether you're new to faith or have been walking with Christ for years, you're welcome here.</p>
+                <p>Join us for worship, fellowship, and spiritual growth. We believe that everyone has a place in God's family, and we'd love to get to know you better.</p>
+                <div class="welcome-actions">
+                    <a href="{{ url_for('branches') }}" class="btn btn-primary">Find a Location</a>
+                    <a href="{{ url_for('events') }}" class="btn btn-outline">Get Involved</a>
+                </div>
+            </div>
+            <div class="welcome-image">
+                <i class="fas fa-church"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links Section -->
+<section class="quick-links-section">
+    <div class="container">
+        <div class="quick-links-grid">
+            <a href="{{ url_for('sermons') }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>Sermon Archives</h3>
+                <p>Listen to inspiring messages from our pastors</p>
+            </a>
+            <a href="{{ url_for('events') }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Church Events</h3>
+                <p>Stay updated on upcoming activities and gatherings</p>
+            </a>
+            <a href="{{ url_for('branches') }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Our Branches</h3>
+                <p>Find a location near you and service times</p>
+            </a>
+            <a href="{{ url_for('inspiration') }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Daily Inspiration</h3>
+                <p>Start your day with biblical wisdom and encouragement</p>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

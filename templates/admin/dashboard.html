@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Mount Zion Victory Church{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <div class="container">
+            <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+            <p>Manage your church website content and settings</p>
+        </div>
+    </div>
+
+    <div class="admin-content">
+        <div class="container">
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ sermon_count }}</h3>
+                        <p>Total Sermons</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ event_count }}</h3>
+                        <p>Total Events</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ branch_count }}</h3>
+                        <p>Church Branches</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ inspiration_count }}</h3>
+                        <p>Daily Inspirations</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <a href="{{ url_for('admin_add_sermon') }}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h3>Add New Sermon</h3>
+                        <p>Upload a new sermon with details</p>
+                    </a>
+
+                    <a href="{{ url_for('admin_add_event') }}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h3>Create Event</h3>
+                        <p>Add a new church event</p>
+                    </a>
+
+                    <a href="{{ url_for('admin_add_branch') }}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-map-marker-plus"></i>
+                        </div>
+                        <h3>Add Branch</h3>
+                        <p>Create a new church location</p>
+                    </a>
+
+                    <a href="{{ url_for('admin_add_inspiration') }}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <h3>Add Inspiration</h3>
+                        <p>Create daily biblical inspiration</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Management Sections -->
+            <div class="management-sections">
+                <h2>Content Management</h2>
+                <div class="sections-grid">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-microphone"></i> Sermons</h3>
+                            <a href="{{ url_for('admin_sermons') }}" class="btn btn-primary">Manage</a>
+                        </div>
+                        <p>Upload, edit, and organize sermon content</p>
+                        <div class="section-stats">
+                            <span>{{ sermon_count }} sermons</span>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-calendar-alt"></i> Events</h3>
+                            <a href="{{ url_for('admin_events') }}" class="btn btn-primary">Manage</a>
+                        </div>
+                        <p>Create and manage church events and activities</p>
+                        <div class="section-stats">
+                            <span>{{ event_count }} events</span>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-church"></i> Branches</h3>
+                            <a href="{{ url_for('admin_branches') }}" class="btn btn-primary">Manage</a>
+                        </div>
+                        <p>Manage church locations and service times</p>
+                        <div class="section-stats">
+                            <span>{{ branch_count }} branches</span>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-heart"></i> Daily Inspiration</h3>
+                            <a href="{{ url_for('admin_inspiration') }}" class="btn btn-primary">Manage</a>
+                        </div>
+                        <p>Update daily biblical quotes and inspiration</p>
+                        <div class="section-stats">
+                            <span>{{ inspiration_count }} inspirations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="system-info">
+                <h2>System Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Current User:</strong> {{ session.username }}
+                    </div>
+                    <div class="info-item">
+                        <strong>Role:</strong> {{ session.role }}
+                    </div>
+                    <div class="info-item">
+                        <strong>Database:</strong> SQLite
+                    </div>
+                    <div class="info-item">
+                        <strong>Last Login:</strong> {{ session.get('last_login', 'N/A') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.admin-container {
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.admin-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.stat-content h3 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #2d3748;
+}
+
+.stat-content p {
+    margin: 0;
+    color: #718096;
+    font-weight: 500;
+}
+
+.quick-actions {
+    margin-bottom: 3rem;
+}
+
+.quick-actions h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
+}
+
+.action-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.action-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: #2d3748;
+}
+
+.action-card p {
+    margin: 0;
+    color: #718096;
+}
+
+.management-sections {
+    margin-bottom: 3rem;
+}
+
+.management-sections h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.section-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #667eea;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-header h3 {
+    margin: 0;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-card p {
+    margin: 0 0 1rem 0;
+    color: #718096;
+}
+
+.section-stats {
+    font-size: 0.9rem;
+    color: #667eea;
+    font-weight: 500;
+}
+
+.system-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.system-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.info-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #667eea;
+}
+
+.info-item strong {
+    color: #2d3748;
+}
+
+@media (max-width: 768px) {
+    .admin-header h1 {
+        font-size: 2rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sections-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

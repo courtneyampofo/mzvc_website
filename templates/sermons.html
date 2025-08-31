@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}Sermon Archives - Mount Zion Victory Church{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>Sermon Archives</h1>
+            <p>Listen to inspiring messages from our pastors and guest speakers</p>
+        </div>
+    </div>
+</section>
+
+<section class="sermons-content">
+    <div class="container">
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search sermons by title, speaker, or topic...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Sermons</button>
+                <button class="filter-btn" data-filter="recent">Recent</button>
+                <button class="filter-btn" data-filter="popular">Popular</button>
+                <button class="filter-btn" data-filter="series">Series</button>
+            </div>
+        </div>
+
+        <!-- Sermons Grid -->
+        <div class="sermons-grid">
+            {% for sermon in sermons %}
+            <div class="sermon-card filterable-item" data-category="recent">
+                <div class="sermon-header">
+                    <div class="sermon-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="sermon-meta">
+                        <span class="sermon-date">{{ sermon.date }}</span>
+                        <span class="sermon-duration">45 min</span>
+                    </div>
+                </div>
+                
+                <div class="sermon-content">
+                    <h3 class="sermon-title">{{ sermon.title }}</h3>
+                    <p class="sermon-speaker">by {{ sermon.speaker }}</p>
+                    
+                    {% if sermon.scripture %}
+                    <div class="sermon-scripture">
+                        <i class="fas fa-book-open"></i>
+                        <span>{{ sermon.scripture }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if sermon.description %}
+                    <p class="sermon-description">{{ sermon.description }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="sermon-actions">
+                    <button class="btn btn-primary btn-sm">
+                        <i class="fas fa-play"></i> Listen
+                    </button>
+                    <button class="btn btn-outline btn-sm">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button class="btn btn-outline btn-sm">
+                        <i class="fas fa-share"></i> Share
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn" disabled>
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <div class="pagination-numbers">
+                <span class="pagination-number active">1</span>
+                <span class="pagination-number">2</span>
+                <span class="pagination-number">3</span>
+                <span class="pagination-dots">...</span>
+                <span class="pagination-number">10</span>
+            </div>
+            <button class="pagination-btn">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Sermon Series -->
+<section class="featured-series">
+    <div class="container">
+        <div class="section-header">
+            <h2>Featured Sermon Series</h2>
+            <a href="#" class="view-all">View All Series</a>
+        </div>
+        
+        <div class="series-grid">
+            <div class="series-card">
+                <div class="series-image">
+                    <i class="fas fa-cross"></i>
+                </div>
+                <div class="series-content">
+                    <h3>The Life of Jesus</h3>
+                    <p>Explore the teachings and miracles of Jesus Christ through this comprehensive series.</p>
+                    <div class="series-stats">
+                        <span><i class="fas fa-microphone"></i> 12 Sermons</span>
+                        <span><i class="fas fa-clock"></i> 8 Hours</span>
+                    </div>
+                    <a href="#" class="btn btn-primary">Start Series</a>
+                </div>
+            </div>
+            
+            <div class="series-card">
+                <div class="series-image">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="series-content">
+                    <h3>Fruits of the Spirit</h3>
+                    <p>Discover how to cultivate love, joy, peace, and other spiritual fruits in your life.</p>
+                    <div class="series-stats">
+                        <span><i class="fas fa-microphone"></i> 9 Sermons</span>
+                        <span><i class="fas fa-clock"></i> 6 Hours</span>
+                    </div>
+                    <a href="#" class="btn btn-primary">Start Series</a>
+                </div>
+            </div>
+            
+            <div class="series-card">
+                <div class="series-image">
+                    <i class="fas fa-pray"></i>
+                </div>
+                <div class="series-content">
+                    <h3>Prayer & Worship</h3>
+                    <p>Learn the power of prayer and deepen your worship experience with God.</p>
+                    <div class="series-stats">
+                        <span><i class="fas fa-microphone"></i> 6 Sermons</span>
+                        <span><i class="fas fa-clock"></i> 4 Hours</span>
+                    </div>
+                    <a href="#" class="btn btn-primary">Start Series</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Subscribe to Sermons -->
+<section class="sermon-subscribe">
+    <div class="container">
+        <div class="subscribe-content">
+            <div class="subscribe-text">
+                <h2>Never Miss a Sermon</h2>
+                <p>Subscribe to our sermon podcast and get notified when new messages are available.</p>
+                <div class="subscribe-features">
+                    <span><i class="fas fa-check"></i> Weekly updates</span>
+                    <span><i class="fas fa-check"></i> Audio downloads</span>
+                    <span><i class="fas fa-check"></i> Study notes</span>
+                </div>
+            </div>
+            <div class="subscribe-form">
+                <form class="email-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </div>
+                </form>
+                <p class="subscribe-note">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Sermon-specific functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    const searchInput = document.querySelector('.search-input');
+    const sermonCards = document.querySelectorAll('.sermon-card');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+            sermonCards.forEach(card => {
+                const title = card.querySelector('.sermon-title').textContent.toLowerCase();
+                const speaker = card.querySelector('.sermon-speaker').textContent.toLowerCase();
+                const description = card.querySelector('.sermon-description')?.textContent.toLowerCase() || '';
+                
+                if (title.includes(query) || speaker.includes(query) || description.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            
+            // For now, just show all sermons (you can implement actual filtering logic)
+            sermonCards.forEach(card => {
+                card.style.display = 'block';
+            });
+        });
+    });
+    
+    // Sermon action buttons
+    const listenButtons = document.querySelectorAll('.btn-primary');
+    const downloadButtons = document.querySelectorAll('.btn-outline');
+    
+    listenButtons.forEach(button => {
+        if (button.textContent.includes('Listen')) {
+            button.addEventListener('click', function() {
+                // Implement audio player functionality
+                alert('Audio player would open here');
+            });
+        }
+    });
+    
+    downloadButtons.forEach(button => {
+        if (button.textContent.includes('Download')) {
+            button.addEventListener('click', function() {
+                // Implement download functionality
+                alert('Download would start here');
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,456 @@
+{% extends "base.html" %}
+
+{% block title %}Our Branches - Mount Zion Victory Church{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>Our Branches</h1>
+            <p>Find a Grace Church location near you and join our community</p>
+        </div>
+    </div>
+</section>
+
+<section class="branches-content">
+    <div class="container">
+        <!-- Branch Search -->
+        <div class="branch-search">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search by location, city, or zip code...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="search-filters">
+                <button class="filter-btn active" data-filter="all">All Branches</button>
+                <button class="filter-btn" data-filter="main">Main Campus</button>
+                <button class="filter-btn" data-filter="north">North Region</button>
+                <button class="filter-btn" data-filter="south">South Region</button>
+            </div>
+        </div>
+
+        <!-- Branches Grid -->
+        <div class="branches-grid">
+            {% for branch in branches %}
+            <div class="branch-card" data-category="{{ branch.name.lower().split()[0] }}">
+                <div class="branch-header">
+                    <div class="branch-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <div class="branch-status">
+                        <span class="status-badge open">Open Now</span>
+                    </div>
+                </div>
+                
+                <div class="branch-content">
+                    <h3 class="branch-name">{{ branch.name }}</h3>
+                    <div class="branch-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ branch.address }}</span>
+                    </div>
+                    
+                    {% if branch.phone %}
+                    <div class="branch-contact">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:{{ branch.phone }}">{{ branch.phone }}</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if branch.email %}
+                    <div class="branch-contact">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:{{ branch.email }}">{{ branch.email }}</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if branch.service_times %}
+                    <div class="branch-services">
+                        <h4>Service Times</h4>
+                        <p>{{ branch.service_times }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="branch-actions">
+                    <button class="btn btn-primary btn-sm">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </button>
+                    <button class="btn btn-outline btn-sm">
+                        <i class="fas fa-calendar"></i> View Schedule
+                    </button>
+                    <button class="btn btn-outline btn-sm">
+                        <i class="fas fa-info-circle"></i> More Info
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Map Section -->
+<section class="map-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Find Us on the Map</h2>
+            <p>Click on any location to get directions and more information</p>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Interactive Map</h3>
+                <p>This would display an interactive map with all church locations</p>
+                <p>You can integrate Google Maps, Mapbox, or other mapping services</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Branch Features -->
+<section class="branch-features">
+    <div class="container">
+        <div class="section-header">
+            <h2>What to Expect at Our Branches</h2>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-pray"></i>
+                </div>
+                <h3>Worship Services</h3>
+                <p>Join us for inspiring worship services with contemporary and traditional music, powerful preaching, and a welcoming atmosphere.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Groups</h3>
+                <p>Connect with others through small groups, Bible studies, and fellowship opportunities that meet throughout the week.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h3>Children's Ministry</h3>
+                <p>Safe, fun, and educational programs for children of all ages, including Sunday School and special events.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>Outreach Programs</h3>
+                <p>Get involved in serving our community through various outreach programs and volunteer opportunities.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-coffee"></i>
+                </div>
+                <h3>Fellowship Areas</h3>
+                <p>Comfortable spaces to connect with others before and after services, including coffee and refreshments.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-wheelchair"></i>
+                </div>
+                <h3>Accessibility</h3>
+                <p>All our locations are fully accessible with ramps, elevators, and accommodations for special needs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Branch Comparison -->
+<section class="branch-comparison">
+    <div class="container">
+        <div class="section-header">
+            <h2>Compare Our Locations</h2>
+            <p>Find the perfect location for you and your family</p>
+        </div>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Service Times</th>
+                        <th>Parking</th>
+                        <th>Childcare</th>
+                        <th>Accessibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Main Campus</strong><br><small>123 Church Street</small></td>
+                        <td>9:00 AM, 11:00 AM</td>
+                        <td><i class="fas fa-check text-success"></i> Free</td>
+                        <td><i class="fas fa-check text-success"></i> Available</td>
+                        <td><i class="fas fa-check text-success"></i> Full</td>
+                    </tr>
+                    <tr>
+                        <td><strong>North Branch</strong><br><small>456 North Avenue</small></td>
+                        <td>10:00 AM</td>
+                        <td><i class="fas fa-check text-success"></i> Free</td>
+                        <td><i class="fas fa-check text-success"></i> Available</td>
+                        <td><i class="fas fa-check text-success"></i> Full</td>
+                    </tr>
+                    <tr>
+                        <td><strong>South Branch</strong><br><small>789 South Road</small></td>
+                        <td>10:30 AM</td>
+                        <td><i class="fas fa-check text-success"></i> Free</td>
+                        <td><i class="fas fa-check text-success"></i> Available</td>
+                        <td><i class="fas fa-check text-success"></i> Full</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Visit Planning -->
+<section class="visit-planning">
+    <div class="container">
+        <div class="planning-content">
+            <div class="planning-text">
+                <h2>Planning Your First Visit?</h2>
+                <p>We want your first visit to be comfortable and enjoyable. Here's what you can expect:</p>
+                <div class="planning-list">
+                    <div class="planning-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Service Duration</h4>
+                            <p>Our services typically last about 90 minutes</p>
+                        </div>
+                    </div>
+                    <div class="planning-item">
+                        <i class="fas fa-tshirt"></i>
+                        <div>
+                            <h4>Dress Code</h4>
+                            <p>Come as you are - we welcome everyone regardless of attire</p>
+                        </div>
+                    </div>
+                    <div class="planning-item">
+                        <i class="fas fa-parking"></i>
+                        <div>
+                            <h4>Parking</h4>
+                            <p>Free parking is available at all locations</p>
+                        </div>
+                    </div>
+                    <div class="planning-item">
+                        <i class="fas fa-baby"></i>
+                        <div>
+                            <h4>Children</h4>
+                            <p>Children are welcome in all services, with special programs available</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="planning-form">
+                <h3>Let Us Know You're Coming</h3>
+                <p>Fill out this form and we'll prepare for your visit!</p>
+                <form class="visit-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Select a Location</option>
+                            <option value="main">Main Campus</option>
+                            <option value="north">North Branch</option>
+                            <option value="south">South Branch</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Any special requests or questions?" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Plan My Visit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>Still Have Questions?</h2>
+                <p>Our team is here to help you find the perfect location and answer any questions you might have.</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+1-555-0123</p>
+                            <small>Monday - Friday, 9:00 AM - 5:00 PM</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>info@gracechurch.com</p>
+                            <small>We'll respond within 24 hours</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <h4>Live Chat</h4>
+                            <p>Available on our website</p>
+                            <small>Chat with us in real-time</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form class="message-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Select Topic</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="visit">Planning a Visit</option>
+                            <option value="directions">Directions</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Branches page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    const searchInput = document.querySelector('.search-input');
+    const branchCards = document.querySelectorAll('.branch-card');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+            branchCards.forEach(card => {
+                const name = card.querySelector('.branch-name').textContent.toLowerCase();
+                const address = card.querySelector('.branch-address span').textContent.toLowerCase();
+                
+                if (name.includes(query) || address.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            
+            branchCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Branch action buttons
+    const getDirectionsButtons = document.querySelectorAll('.btn-primary');
+    const viewScheduleButtons = document.querySelectorAll('.btn-outline');
+    
+    getDirectionsButtons.forEach(button => {
+        if (button.textContent.includes('Get Directions')) {
+            button.addEventListener('click', function() {
+                const branchCard = this.closest('.branch-card');
+                const address = branchCard.querySelector('.branch-address span').textContent;
+                const url = `https://www.google.com/maps/search/${encodeURIComponent(address)}`;
+                window.open(url, '_blank');
+            });
+        }
+    });
+    
+    viewScheduleButtons.forEach(button => {
+        if (button.textContent.includes('View Schedule')) {
+            button.addEventListener('click', function() {
+                alert('Schedule would open here');
+            });
+        }
+    });
+    
+    // Visit planning form
+    const visitForm = document.querySelector('.visit-form');
+    if (visitForm) {
+        visitForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for planning your visit! We will contact you soon to confirm the details.');
+            this.reset();
+        });
+    }
+    
+    // Message form
+    const messageForm = document.querySelector('.message-form');
+    if (messageForm) {
+        messageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you within 24 hours.');
+            this.reset();
+        });
+    }
+    
+    // Branch status simulation
+    function updateBranchStatus() {
+        const statusBadges = document.querySelectorAll('.status-badge');
+        statusBadges.forEach(badge => {
+            // Simulate different statuses
+            const statuses = ['Open Now', 'Open Now', 'Open Now'];
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            badge.textContent = randomStatus;
+        });
+    }
+    
+    // Update status every 5 minutes
+    setInterval(updateBranchStatus, 300000);
+});
+</script>
+{% endblock %}
