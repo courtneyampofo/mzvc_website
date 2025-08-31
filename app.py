@@ -12,6 +12,9 @@ DATABASE = 'database/database.db'
 
 def init_db():
     """Initialize the database with tables"""
+    # Ensure database directory exists
+    os.makedirs('database', exist_ok=True)
+    
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     
@@ -88,6 +91,7 @@ def init_db():
     
     conn.commit()
     conn.close()
+    print(f"Database initialized successfully at {DATABASE}")
 
 def insert_sample_data(cursor):
     """Insert sample data for demonstration"""
@@ -145,6 +149,9 @@ def insert_sample_data(cursor):
 
 def get_db_connection():
     """Get a database connection"""
+    # Ensure database directory exists
+    os.makedirs('database', exist_ok=True)
+    
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
@@ -158,6 +165,9 @@ def require_admin(f):
         return f(*args, **kwargs)
     decorated_function.__name__ = f.__name__
     return decorated_function
+
+# Initialize database when app starts
+init_db()
 
 # Routes
 @app.route('/')
@@ -631,9 +641,6 @@ def inspiration():
 if __name__ == '__main__':
     # Ensure uploads directory exists
     os.makedirs('uploads', exist_ok=True)
-    
-    # Initialize database
-    init_db()
     
     print("Church Website is running!")
     print("Default admin credentials: username: admin, password: admin123")
